@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
 
 function JokeCard(props) {
@@ -35,7 +36,7 @@ function JokeCard(props) {
     return (
         <div className='d-flex flex-wrap justify-content-center joke'>
             {jokes && jokes.map((item) => (
-                <div className='p-2 flex-fill ' key={item.id}  >
+                <div className='p-2 flex-fill ' key={item.id} id="element" >
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                     <div id="container" style={{ background: colors.get(item.id) }}>
 
@@ -62,13 +63,13 @@ function JokeCard(props) {
                             </div>
                             <div className="control">
 
-                                <Button variant="dark" size="lg" onClick={() => handleShow(item.id)}>Report</Button>
+                                <Button variant="dark" size="lg" disabled={colors.get(item.id)==="rgba(255,130,130,0.6)"} onClick={() => handleShow(item.id)}>Report</Button>
 
                             </div>
 
                         </div>
-                        {
-                            item.type !== "single" &&
+                        {   (console.log("Baaaa",colors.get(item.id)==="rgba(255,130,130,0.6)"),
+                            item.type !== "single") &&
                             <div className="product-image">
                                 <div className="info">
                                     <h2> Continuation</h2>
@@ -88,7 +89,7 @@ function JokeCard(props) {
                     <Button variant="dark" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={handleClose2}>
+                    <Button variant="danger"  onClick={handleClose2}>
                         Confirm
                     </Button>
                 </Modal.Footer>
